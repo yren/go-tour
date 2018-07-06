@@ -20,10 +20,7 @@ func main() {
     s = s[:6]
     printSlice(s)
     
-    s = s[:0]
-    printSlice(s)
-    
-    s = s[:6]
+    s = s[2:4]
     printSlice(s)
 
 }
