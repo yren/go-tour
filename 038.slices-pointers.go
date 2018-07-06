@@ -1,0 +1,28 @@
+/*
+    切片就像数组的引用
+    切片并不存储任何数据，它只是描述了底层数组的一段
+    更改切片的元素会修改其底层数组中对应的元素。
+    与它共享底层数组的切片都会看到修改
+*/
+
+package main
+
+import "fmt"
+
+func main() {
+    names := [4]string{
+        "John",
+        "Mike",
+        "Kylo",
+        "Jerry",
+    }
+    fmt.Println(names)
+    
+    a := names[0:2]
+    b := names[1:3]
+    fmt.Println(a, b)
+    
+    b[0] = "xman"
+    fmt.Println(a, b)
+    fmt.Println(names)
+}
