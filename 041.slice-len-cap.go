@@ -17,10 +17,10 @@ func main() {
     s = s[:0]
     printSlice(s)
     
-    s = s[:6]
+    s = s[:3]
     printSlice(s)
     
-    s = s[2:4]
+    s = s[:6]
     printSlice(s)
 
 }
