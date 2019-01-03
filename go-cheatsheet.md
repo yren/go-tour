@@ -234,3 +234,48 @@ func main() {
     fmt.Println(q, r, s)
 }
 ```
+
+## slice 的默认边界
+slice 下界的默认是 `0`, 上界默认是切片长度
+
+```
+//对于数组
+
+var a [10]int
+
+// 以下切片是等价的
+
+a[0: 10]
+a[: 10]
+a[0:]
+a[:] 
+```
+
+## slice 的长度(length)和容量 (capacity)
+
+切片有 length 和 capacity
+
+length 是切片包含元素的个数
+
+capacity 是第一个元素开始，到底层元素末尾的个数
+
+可以用表达式 `len(s)`, `cap(s)` 获取长度和容量
+
+## nil 切片
+切片的零值是 `nil`
+
+`nil` 切片长度和容量为 0, 且没有底层数组
+
+```
+package main
+
+import "fmt"
+
+func main() {
+    var s []int
+    fmt.Println(s, len(s), cap(s))
+    if s == nil {
+        fmt.Println("nil")
+    }
+}
+```
