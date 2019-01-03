@@ -343,3 +343,167 @@ func printSlice(s []int) {
     fmt.Printf("len=%d, cap=%d, %v", len(s), cap(s), s)
 }
 ```
+
+# range
+for 循环的 range 形式遍历切片或映射
+
+使用 for 遍历 slice 时，每次迭代返回两个值，第一个是当前元素的下标，第二个是元素对于元素的一个副本。
+
+```
+package main
+
+import "fmt"
+
+var pow = []int{1, 2, 3, 4, 5}
+
+func main() {
+    for i, v := range pow {
+        fmt.Printf("%d, %d", i, v)
+    }
+}
+```
+
+使用 `_` 忽略索引或值
+
+```
+func main() {
+    pow := make([]int, 10)
+    for i := range pow {
+        pow[i] = 1 << uint(i) 
+    }
+    for _, value := range pow {
+        fmt.Println("%d", value)
+    }
+}
+```
+
+# map 映射
+map 将键映射到值。
+
+零值为 nil, nil 映射即没有键，也不能添加 key
+
+make 函数返回给定类型的 map, 并将其初始化备用。
+
+```
+package main
+
+import "fmt"
+
+type Vertex struct {
+    Lat, Long float64
+}
+
+var m map[string]Vertex
+
+func main() {
+    m = make(map[string]Vertex)
+    m["Bell"] = Vertex{40.662, 34.555}
+}
+```
+
+## map 的文法
+map 与 struct 文法类似，必须有键名
+
+```
+package main
+
+import "fmt"
+
+type Vertex struct {
+    Lat, Long float64
+}
+
+var m = map[string]Vertex {
+    "abc": Vertex {
+        40.112, 34.223,
+    },
+    "def": Vertex {
+        20.234, 45.123,
+    },
+}
+
+```
+
+如果顶级类型只是一个类型名，可以在文法中省略它。
+
+```
+package main
+
+import "fmt"
+
+type Vertex struct {
+    Lat, Long float64
+}
+
+var m = map[string]Vertex{
+    "Bell": {29.34, 19.23},
+    "Mike": {34.12, 34.56},
+}
+```
+
+## 使用 map
+插入或修改 map, 
+```
+m[key] = elem
+```
+
+获取元素
+```
+elem = m[key]
+```
+删除元素 `delete(m, key)`, 
+
+双赋值检测某个键是否存在 `elem, ok = m[key]` , 如果 key 在 m 中，ok=true, 否则 ok=false
+
+# 函数值
+函数可以像其他值一样传递，作为参数，返回值。
+
+```
+package main
+
+import (
+    "fmt"
+    "math"
+)
+
+func compute(fn func(float64, float64) float64) float64 {
+    return fn(3, 4)
+}
+
+func main() {
+    hypot := func(x, y float64) float64 {
+        return math.Sqrt(x*x + y*y)
+    }
+    fmt.Println(compute(hypot))
+}
+```
+
+# 函数闭包 closure
+闭包是一个函数值，它引用了函数体之外的变量。该函数可以访问并赋予其引用变量的值。
+
+```
+package main
+
+import "fmt"
+
+func addr() func(int) int {
+    sum := 0
+    return func(x int) int {
+        sum += x
+        return sum
+    }
+}
+
+func main() {
+    pos, neg := addr(), addr()
+    for i:=0, i<10; i++ {
+        fmt.Println(
+            pos(i),
+            neg(-2 * i)
+        )
+    }
+}
+```
+
+
+
