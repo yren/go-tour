@@ -279,3 +279,67 @@ func main() {
     }
 }
 ```
+
+## make 创建 slice
+使用内建函数 make 创建 slice, 也可以创建动态数组
+
+make 函数分配一个元素为零值得数组并返回一个引用了它的切片:
+
+```
+a := make([]int, 5) // len(a) = 5
+```
+
+指定容量需要传入第三个参数:
+
+```
+b := make([]int, 0, 5) // len(b)=0, cap(b)=5
+
+b = b[:cap(b)] // len(b) = 5, cap(b) = 5
+b = b[1:]  // len(b) = 4, cap(b) = 4
+```
+
+## 切片的切片
+切片可以包含切片
+
+```
+package main 
+
+import (
+    "fmt"
+    "strings"
+)
+
+func main() {
+    board := [][]string{
+        []string{"a", "b", "c"},
+        []string{"e", "f", "g"},
+        []string{"h", "i", "j"},
+    }
+    board[0][0] = "x"
+}
+```
+
+## 向切片追加元素
+内建的 append 函数
+
+```
+func append(s []T, ...T) []T
+```
+append 结果是一个添加新元素的切片。当底层数组太小，会分配更大数组，返回切片指向新的数组。
+
+```
+package main
+
+import "fmt"
+
+func main() {
+    var s []int
+    s = append(s, 0) // append works on nil slice
+    s = append(s, 1, 2, 3)
+    printSlice(s)
+}
+
+func printSlice(s []int) {
+    fmt.Printf("len=%d, cap=%d, %v", len(s), cap(s), s)
+}
+```
