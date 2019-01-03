@@ -152,3 +152,85 @@ func main() {
     fmt.Println(primes)
 }
 ```
+
+## slice (切片)
+数组大小固定，切片为数组提供了动态大小，灵活的视角
+
+`[]T` 表示元素 T 类型的 slice
+
+切片通过上界，下界来界定，用 `:` 分隔 `a[low : high]`, 是一个半开区间，包括第一个元素，排除最后一个元素。
+
+a[1, 4] 切片包含 1 到 3 的元素。
+
+```
+package main
+
+import "fmt"
+
+func main() {
+    primes := [6]int{1, 2, 3, 4, 5, 6}
+    s := primes[1: 4]
+    fmt.Println(s)
+}
+```
+
+## slice 像数组的引用
+slice 不存储任何数据，它描述底层数组的一段
+
+更改切边会修改底层数组的元素
+
+共享底层数组的其他 slice 会看到修改
+
+```
+package main
+
+import "fmt"
+
+func main() {
+    names := [4]string{
+        "a",
+        "b",
+        "c",
+        "d",
+    }
+    fmt.Println(names)
+    a := names[0, 2]
+    b := names[1, 3]
+    fmt.Println(a, b)
+
+    b[0] = aaa
+    fmt.Println(a, b)
+    fmt.Println(names)
+}
+```
+
+## slice 文法
+切片类似没有长度数组的文法
+
+```
+// 数组
+[3]bool{true, false, false}
+
+// 切片
+[]bool{true, false, false}
+```
+
+```
+package main
+
+import "fmt"
+
+func main() {
+    q := []int{1, 2, 3}
+    r := []bool{true, false}
+    s := []struct {
+        i int
+        b bool
+    }{
+        {1, true},
+        {2, false}
+        }
+
+    fmt.Println(q, r, s)
+}
+```
