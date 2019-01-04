@@ -1,3 +1,14 @@
+# GOROOT, GOPATH, GOBIN
+GOROOT: GO 语言安装路径
+
+GOPATH: 工作区目录
+
+GOBIN: 可执行文件的路径
+
+* GOPATH 是 Go 语言的工作目录，它的值是一个目录路径，也可以是多个目录，每个目录代表 go 的一个工作区。
+
+go 的源码以包为组织单位。
+
 # go 基本类型
 ```
 bool
